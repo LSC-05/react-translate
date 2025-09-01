@@ -33,8 +33,9 @@ export const TranslateForm = () => {
   const handleChangeLang=(e)=>{
     setLang({
       ...lang,
-      [e.target.id]: e.target.value,
+      [e.target.name]: e.target.value,
     })
+    console.log(lang.toLang)
   }
 
   const handleClickTranslate=(e)=>{
@@ -99,7 +100,7 @@ export const TranslateForm = () => {
               name="fromLang"
               sx={{ backgroundColor: '#ffffff' }}
               onChange={handleChangeLang}
-              defaultValue={lang.fromLang}
+              value={lang.fromLang}
             >
               {Object.keys(countries).map((key) => {
                 return (
@@ -135,7 +136,7 @@ export const TranslateForm = () => {
               name="toLang"
               sx={{ backgroundColor: '#ffffff' }}
               onChange={handleChangeLang}
-              defaultValue={lang.toLang}
+              value={lang.toLang}
             >
               {Object.keys(countries).map((key) => {
                 return (
