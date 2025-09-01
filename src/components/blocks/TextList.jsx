@@ -24,6 +24,25 @@ const StyledTableCell = styled(TableCell)(({ theme }) => ({
 }));
 
 export const TextList = ({ data }) => {
+  const dispatch = useContext(DispatchContext);
+
+  const handleClickDelete=(e, id)=>{
+    dispatch({
+      type: "delete",
+      payload: {
+        id
+      }
+    })
+  }
+
+  const handleClickStar=(e, id)=> {
+    dispatch({
+      type: "star",
+      payload: {
+        id
+      }
+    })
+  }
   return (
     <Container sx={{ mt: 2, mb: 10 }}>
       <TableContainer component={Paper}>
@@ -32,22 +51,22 @@ export const TextList = ({ data }) => {
             <TableRow>
               <StyledTableCell>翻訳前テキスト</StyledTableCell>
               <StyledTableCell>翻訳後テキスト</StyledTableCell>
-              <StyledTableCell>スター</StyledTableCell>
               <StyledTableCell>削除</StyledTableCell>
+              <StyledTableCell>スター</StyledTableCell>
             </TableRow>
           </TableHead>
           <TableBody>
             {data.map((d) => (
               <TableRow key={d.id} hover sx={{ cursor: 'pointer' }}>
-                <StyledTableCell></StyledTableCell>
-                <StyledTableCell></StyledTableCell>
+                <StyledTableCell>{d.fromText}{` (${d.fromLang})`}</StyledTableCell>
+                <StyledTableCell>{d.toText}{` (${d.toLang})`}</StyledTableCell>
                 <StyledTableCell>
-                  <IconButton aria-label="delete" color="error">
+                  <IconButton aria-label="delete" color="error" onClick={(e)=> handleClickDelete(e, d.id)}>
                     <DeleteIcon />
                   </IconButton>
                 </StyledTableCell>
                 <StyledTableCell>
-                  <IconButton aria-label="star">
+                  <IconButton aria-label="star" onClick={(e)=> handleClickStar(e, d.id)}>
                     <Star {...d} />
                   </IconButton>
                 </StyledTableCell>
